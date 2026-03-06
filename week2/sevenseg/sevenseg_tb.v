@@ -27,6 +27,34 @@ module tb_hex();
         sw = 4'h2; #10;
         $display("  %h    | %b", sw, seg);
 
+        // Test Case 3
+        sw = 4'h3; #10;
+        $display("  %h    | %b", sw, seg);
+
+        // Test Case 4
+        sw = 4'h4; #10;
+        $display("  %h    | %b", sw, seg);
+
+        // Test Case 5
+        sw = 4'h5; #10;
+        $display("  %h    | %b", sw, seg);
+
+        // Test Case 6
+        sw = 4'h6; #10;
+        $display("  %h    | %b", sw, seg);
+
+        // Test Case 7
+        sw = 4'h7; #10;
+        $display("  %h    | %b", sw, seg);
+
+        // Test Case 8
+        sw = 4'h8; #10;
+        $display("  %h    | %b", sw, seg);
+
+        // Test Case 9
+        sw = 4'h9; #10;
+        $display("  %h    | %b", sw, seg);
+
         $finish; // End the simulation
     end
 endmodule
