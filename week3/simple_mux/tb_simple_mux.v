@@ -2,16 +2,20 @@
 
 module tb_simple_mux();
     reg clk;
-    reg [3:0] tens;
-    reg [3:0] units;
+    reg [3:0] digit0;
+    reg [3:0] digit1;
+    reg [3:0] digit2;
+    reg [3:0] digit3;
     wire [3:0] hex_to_display;
-    wire [1:0] digit_select;
+    wire [3:0] digit_select;
 
     // Instantiate the Mux
     simple_mux uut (
         .clk(clk),
-        .tens(tens),
-        .units(units),
+        .digit0(digit0),
+        .digit1(digit1),
+        .digit2(digit2),
+        .digit3(digit3),
         .hex_to_display(hex_to_display),
         .digit_select(digit_select)
     );
@@ -22,22 +26,33 @@ module tb_simple_mux();
     initial begin
         // Initialize
         clk = 0;
-        tens = 4'd1;  // We want to display "1" in the tens place
-        units = 4'd2; // We want to display "2" in the units place
+        digit0 = 4'd0;  // Left
+        digit1 = 4'd1;
+        digit2 = 4'd2;
+        digit3 = 4'd3;  // Right
 
-        $display("Starting Multiplexer Simulation...");
+        $display("Starting 4-Digit Multiplexer Simulation...");
+        $display("Time (ns) | Digit_Select (3-0) | Hex Value | Note");
+        $display("--------------------------------------------------------");
         
-        // Wait for a few flicker cycles
-        // Each flicker switch takes 0.5ms (500,000 ns)
-        #600000; 
-        $display("Check 1: Displaying Digit %b with value %d", digit_select, hex_to_display);
+        // Sample through multiple cycles
+        // Each digit is active for 0.25ms (250,000 ns)
+        #125000;
+        $display("%8t |      %b           |    %0d     | Digit 0", $time, digit_select, hex_to_display);
         
-        #500000;
-        $display("Check 2: Displaying Digit %b with value %d", digit_select, hex_to_display);
+        #250000;
+        $display("%8t |      %b           |    %0d     | Digit 1", $time, digit_select, hex_to_display);
         
-        #500000;
-        $display("Check 3: Displaying Digit %b with value %d", digit_select, hex_to_display);
+        #250000;
+        $display("%8t |      %b           |    %0d     | Digit 2", $time, digit_select, hex_to_display);
+        
+        #250000;
+        $display("%8t |      %b           |    %0d     | Digit 3", $time, digit_select, hex_to_display);
+        
+        #250000;
+        $display("%8t |      %b           |    %0d     | Back to Digit 0", $time, digit_select, hex_to_display);
 
+        $display("Simulation complete.");
         $finish;
     end
 endmodule
